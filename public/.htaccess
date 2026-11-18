@@ -1,4 +1,4 @@
-# PHMR Tech Solutions: site estático (Astro) na Hostinger
+# Prof.ai: site estático (Astro) na Hostinger
 Options -Indexes
 DirectoryIndex index.html
 ErrorDocument 404 /404.html

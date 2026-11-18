@@ -46,7 +46,7 @@ export const exemplos: Exemplo[] = [
     semanas: [
       { titulo: 'Apresentação', descricao: 'Falar de você e da sua área, com o vocabulário que mais aparece.' },
       { titulo: 'Perguntas comuns', descricao: 'Treinar respostas curtas para as perguntas que quase sempre vêm.' },
-      { titulo: 'Simulação', descricao: 'Uma entrevista de mentira, gravada, para ouvir o próprio inglês.' },
+      { titulo: 'Simulação', descricao: 'Uma entrevista simulada, gravada, para ouvir o próprio inglês.' },
       { titulo: 'Ajustes', descricao: 'Revisar os erros da simulação e repetir a entrevista inteira.' },
     ],
     professores: [

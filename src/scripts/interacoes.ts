@@ -119,24 +119,6 @@ document.querySelectorAll<HTMLElement>('[data-demo]').forEach((demo) => {
   );
 });
 
-// A orquestração da demonstração só começa quando ela aparece na tela.
-const demos = document.querySelectorAll<HTMLElement>('[data-demo]');
-if ('IntersectionObserver' in window) {
-  const vista = new IntersectionObserver(
-    (entradas) =>
-      entradas.forEach((en) => {
-        if (en.isIntersecting) {
-          en.target.classList.add('vista');
-          vista.unobserve(en.target);
-        }
-      }),
-    { threshold: 0.15 },
-  );
-  demos.forEach((d) => vista.observe(d));
-} else {
-  demos.forEach((d) => d.classList.add('vista'));
-}
-
 // ---------- Menu do celular ----------
 const menu = document.querySelector<HTMLButtonElement>('[data-menu]');
 const nav = document.querySelector<HTMLElement>('[data-nav]');
@@ -183,20 +165,4 @@ if (cabecalho) {
   window.addEventListener('scroll', marcar, { passive: true });
 }
 
-// ---------- Reveal ao rolar (uma vez, só com JS) ----------
-const itens = document.querySelectorAll<HTMLElement>('[data-reveal]');
-if ('IntersectionObserver' in window) {
-  const obs = new IntersectionObserver(
-    (entradas) =>
-      entradas.forEach((en) => {
-        if (en.isIntersecting) {
-          en.target.classList.add('is-shown');
-          obs.unobserve(en.target);
-        }
-      }),
-    { threshold: 0.12, rootMargin: '0px 0px -5% 0px' },
-  );
-  itens.forEach((i) => obs.observe(i));
-} else {
-  itens.forEach((i) => i.classList.add('is-shown'));
-}
+// Reveal ao rolar e início da demonstração: script inline em Base.astro.

@@ -1,7 +1,7 @@
 ---
 import { exemplos } from '@/data/demo';
 
-const H0 = 8, H1 = 23;
+const H0 = 8, H1 = 24;
 const pct = (h: number) => ((h - H0) / (H1 - H0)) * 100;
 const pos = ([a, b]: [number, number]) => `--l:${pct(a)}%;--w:${pct(b) - pct(a)}%`;
 const comum = (x: [number, number][] = [], y: [number, number][] = []) =>
