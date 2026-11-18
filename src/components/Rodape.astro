@@ -1,0 +1,17 @@
+---
+import coracao from '@/assets/coracao.svg?raw';
+---
+
+<footer class="rodape">
+  <div class="rodape-interno">
+    <p>
+      Proffy e a Next Level Week 2 são da <a href="https://rocketseat.com.br" target="_blank" rel="noopener noreferrer">Rocketseat</a>. Esta página é um estudo da aula 1, sem fins comerciais e sem ligação oficial com a Rocketseat.
+    </p>
+    <p class="rodape-credito">
+      <span set:html={coracao.replace('#9871f5', 'currentColor').replace('<svg ', '<svg aria-hidden="true" focusable="false" ')} />
+      <span>
+        Projeto de estudo de Paulo H. M. Rabelo · <a href="https://phmr.libertycondominio.online" target="_blank" rel="noopener noreferrer">PHMR Tech Solutions</a>
+      </span>
+    </p>
+  </div>
+</footer>

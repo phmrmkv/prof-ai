@@ -1,0 +1,350 @@
+@import "tailwindcss";
+@import "@fontsource/poppins/latin-400.css";
+@import "@fontsource/poppins/latin-600.css";
+@import "@fontsource/archivo/latin-700.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Paleta do Proffy (style.css original): roxo #8257E5, verde #04D361, títulos #32264D,
+   texto #6A6180, fundo #F0F0F7. Tema claro mantém o roxo do original; o escuro é um roxo profundo. */
+:root {
+  color-scheme: light;
+
+  --hero-bg: #8257e5;
+  --hero-texto: #ffffff;
+  --hero-hover: rgb(255 255 255 / 0.16);
+  --hero-borda: rgb(255 255 255 / 0.4);
+
+  --btn-estudar-bg: #5b34b3;
+  --btn-estudar-bg-hover: #4b2a98;
+  --btn-estudar-texto: #ffffff;
+  --btn-dar-bg: #04d361;
+  --btn-dar-bg-hover: #3fe888;
+  --btn-dar-texto: #1d1236;
+
+  --secao-bg: #f0f0f7;
+  --secao-titulo: #32264d;
+  --secao-texto: #5a5070;
+  --secao-destaque: #6a3fd6;
+  --cartao-bg: #ffffff;
+  --cartao-borda: #d9d6e6;
+  --cartao-texto: #5a5070;
+  --cartao-titulo: #32264d;
+  --anel: #6a3fd6;
+
+  --rodape-bg: #32264d;
+  --rodape-texto: #e6e0f5;
+  --rodape-link: #ffffff;
+  --coracao: #b79cff;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-enter: 400ms;
+  --dur-enter-text: 500ms;
+  --dur-stagger: 40ms;
+  --distance-enter: 12px;
+  --blur-enter: 2px;
+  --dur-hover: 350ms;
+  --dur-hover-fast: 150ms;
+  --dur-press: 100ms;
+  --press-scale: 0.97;
+  --dur-layout: 250ms;
+  --dur-open: 250ms;
+  --dur-close: 150ms;
+  --modal-scale: 0.96;
+  --lift: -2px;
+
+  --fonte-titulo: "Archivo", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, "Segoe UI", Roboto, sans-serif;
+  --fonte-texto: "Poppins", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --hero-bg: #1a1033;
+  --hero-texto: #f4efff;
+  --hero-hover: rgb(255 255 255 / 0.12);
+  --hero-borda: rgb(255 255 255 / 0.35);
+
+  --btn-estudar-bg: #9871f5;
+  --btn-estudar-bg-hover: #ad8cff;
+  --btn-estudar-texto: #120a24;
+  --btn-dar-bg: #04d361;
+  --btn-dar-bg-hover: #3fe888;
+  --btn-dar-texto: #0f0a1e;
+
+  --secao-bg: #231745;
+  --secao-titulo: #ffffff;
+  --secao-texto: #cdc3e6;
+  --secao-destaque: #c3adff;
+  --cartao-bg: #2d1f58;
+  --cartao-borda: #4a3a82;
+  --cartao-texto: #d6cdee;
+  --cartao-titulo: #ffffff;
+  --anel: #c3adff;
+
+  --rodape-bg: #120a24;
+  --rodape-texto: #cdc3e6;
+  --rodape-link: #ffffff;
+  --coracao: #9871f5;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--secao-bg);
+    color: var(--secao-texto);
+    font-family: var(--fonte-texto);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2 { font-family: var(--fonte-titulo); font-weight: 700; }
+  :focus-visible { outline: 3px solid var(--anel); outline-offset: 3px; border-radius: 4px; }
+  .sobre-hero :focus-visible, .cabecalho :focus-visible { outline-color: #ffffff; }
+  html:has(dialog[open]) { overflow: hidden; }
+}
+
+/* ---------- Cabeçalho ---------- */
+.cabecalho {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  isolation: isolate;
+  color: var(--hero-texto);
+}
+.cabecalho::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in oklab, var(--hero-bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--hero-borda);
+  opacity: 0;
+  transition: opacity var(--dur-layout) var(--ease-out-soft);
+}
+.cabecalho[data-rolado="true"]::before { opacity: 1; }
+.cabecalho-interno {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+}
+@media (min-width: 768px) { .cabecalho-interno { padding: 0.75rem 2rem; } }
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 0.25rem;
+  transition: transform var(--dur-hover) var(--ease-out-soft);
+}
+.logo-link img { display: block; height: 1.75rem; width: auto; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .logo-link:hover { transform: translateY(var(--lift)); } }
+
+/* ---------- Botão de tema ---------- */
+.tema-botao {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 999px;
+  color: var(--hero-texto);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color var(--dur-hover-fast) var(--ease-out-soft), transform var(--dur-press) var(--ease-out-soft);
+}
+.tema-botao:hover { background: var(--hero-hover); }
+.tema-botao:active { transform: scale(var(--press-scale)); }
+.tema-icone {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+  transition: opacity var(--dur-close) var(--ease-out-soft), transform var(--dur-close) var(--ease-out-soft);
+}
+.tema-icone-lua { opacity: 1; transform: none; transition-duration: var(--dur-open); }
+[data-theme="dark"] .tema-icone-lua { opacity: 0; transform: rotate(-90deg) scale(0.6); transition-duration: var(--dur-close); }
+[data-theme="dark"] .tema-icone-sol { opacity: 1; transform: none; transition-duration: var(--dur-open); }
+
+/* Troca de tema: cor, fundo e borda em 250 ms (classe temporária no <html>) */
+.tema-trocando,
+.tema-trocando *:not(.tema-icone),
+.tema-trocando *::before,
+.tema-trocando *::after {
+  transition:
+    background-color var(--dur-layout) var(--ease-out-soft),
+    color var(--dur-layout) var(--ease-out-soft),
+    border-color var(--dur-layout) var(--ease-out-soft),
+    fill var(--dur-layout) var(--ease-out-soft) !important;
+}
+
+/* ---------- Hero ---------- */
+.sobre-hero {
+  background: var(--hero-bg);
+  color: var(--hero-texto);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 6rem 1rem 3rem;
+}
+@media (min-width: 768px) { .sobre-hero { padding: 6rem 2rem 4rem; } }
+.hero-grade {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  max-width: 75rem;
+  width: 100%;
+  margin: 0 auto;
+}
+@media (min-width: 1024px) { .hero-grade { grid-template-columns: 1fr 1.1fr; gap: 3rem; } }
+.hero-titulo {
+  font-size: clamp(2.25rem, 1.5rem + 3.2vw, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.hero-sub { margin-top: 1rem; font-size: 1.25rem; line-height: 1.5; }
+.hero-botoes { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+.hero-arte { justify-self: center; width: 100%; max-width: 40rem; }
+.hero-arte img { display: block; width: 100%; height: auto; }
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 3.5rem;
+  padding: 0 1.75rem;
+  border-radius: 0.5rem;
+  font-family: var(--fonte-texto);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  transition:
+    transform var(--dur-press) var(--ease-out-soft),
+    background-color var(--dur-hover-fast) var(--ease-out-soft),
+    color var(--dur-hover-fast) var(--ease-out-soft);
+}
+.botao svg { flex-shrink: 0; width: 1.75rem; height: 1.75rem; }
+.botao:active { transform: scale(var(--press-scale)); }
+.botao-estudar { background: var(--btn-estudar-bg); color: var(--btn-estudar-texto); }
+.botao-estudar:hover { background: var(--btn-estudar-bg-hover); }
+.botao-dar { background: var(--btn-dar-bg); color: var(--btn-dar-texto); }
+.botao-dar:hover { background: var(--btn-dar-bg-hover); }
+.botao-neutro { background: var(--secao-destaque); color: #ffffff; min-height: 3rem; }
+:root[data-theme="dark"] .botao-neutro { color: #120a24; }
+.botao-neutro:hover { filter: brightness(0.92); }
+
+/* ---------- Entrada da hero (uma vez; docs/transicoes.md) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .entra { animation: entra var(--dur-enter-text) var(--ease-out-soft) both; animation-delay: calc(80ms + var(--i, 0) * var(--dur-stagger)); }
+  .entra-arte { animation: entra-arte 700ms var(--ease-out-soft) both; animation-delay: 200ms; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .entra, .entra-arte { animation: fade-in-soft var(--dur-enter) var(--ease-out-soft) both; }
+  .botao:active, .tema-botao:active, .aviso-fechar:active { transform: none; }
+  .tema-icone, [data-theme="dark"] .tema-icone-lua, [data-theme="dark"] .tema-icone-sol { transform: none; }
+}
+@keyframes entra {
+  from { opacity: 0; transform: translateY(var(--distance-enter)); filter: blur(var(--blur-enter)); }
+}
+@keyframes entra-arte {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); filter: blur(var(--blur-enter)); }
+}
+@keyframes fade-in-soft { from { opacity: 0; } }
+
+/* ---------- Seção Sobre este estudo ---------- */
+.secao { padding: 4rem 1rem; }
+@media (min-width: 768px) { .secao { padding: 5rem 2rem; } }
+.secao-interno { max-width: 48rem; margin: 0 auto; }
+.secao h2 { color: var(--secao-titulo); font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem); line-height: 1.15; letter-spacing: -0.01em; }
+.secao p { margin-top: 1rem; max-width: 42rem; }
+.secao strong { color: var(--secao-titulo); font-weight: 600; }
+.lista-estudo { margin-top: 1.5rem; display: grid; gap: 0.75rem; padding: 0; list-style: none; }
+.lista-estudo li { padding: 1rem 1.25rem; border: 1px solid var(--cartao-borda); border-radius: 0.75rem; background: var(--cartao-bg); color: var(--cartao-texto); }
+section[tabindex="-1"]:focus { outline: none; }
+
+/* ---------- Rodapé ---------- */
+.rodape { background: var(--rodape-bg); color: var(--rodape-texto); padding: 2.5rem 1rem; font-size: 0.9375rem; }
+@media (min-width: 768px) { .rodape { padding: 2.5rem 2rem; } }
+.rodape-interno { max-width: 75rem; margin: 0 auto; display: grid; gap: 0.75rem; }
+.rodape a {
+  color: var(--rodape-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in oklab, currentColor 45%, transparent);
+  transition: text-decoration-color var(--dur-hover-fast) var(--ease-out-soft);
+}
+.rodape a:hover { text-decoration-color: currentColor; }
+.rodape :focus-visible { outline-color: #ffffff; }
+.rodape-credito { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.rodape-credito svg { color: var(--coracao); flex-shrink: 0; }
+
+/* ---------- Dialog nativo (abre 250 ms, fecha 150 ms) ---------- */
+.aviso {
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--cartao-borda);
+  border-radius: 1rem;
+  width: calc(100% - 2rem);
+  max-width: 30rem;
+  background: var(--cartao-bg);
+  color: var(--cartao-texto);
+  box-shadow: 0 24px 60px -20px rgb(20 8 50 / 0.6);
+  opacity: 0;
+  scale: var(--modal-scale);
+  transition:
+    opacity var(--dur-close) var(--ease-out-soft),
+    scale var(--dur-close) var(--ease-out-soft),
+    display var(--dur-close) allow-discrete,
+    overlay var(--dur-close) allow-discrete;
+}
+.aviso[open] { opacity: 1; scale: 1; transition-duration: var(--dur-open); }
+@starting-style { .aviso[open] { opacity: 0; scale: var(--modal-scale); } }
+.aviso::backdrop {
+  background: rgb(14 6 34 / 0.62);
+  opacity: 0;
+  transition: opacity var(--dur-close) var(--ease-out-soft), display var(--dur-close) allow-discrete, overlay var(--dur-close) allow-discrete;
+}
+.aviso[open]::backdrop { opacity: 1; transition-duration: var(--dur-open); }
+@starting-style { .aviso[open]::backdrop { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .aviso { scale: 1; }
+  @starting-style { .aviso[open] { scale: 1; } }
+}
+.aviso-corpo { position: relative; padding: 2rem 1.5rem 1.5rem; }
+.aviso-corpo h2 { color: var(--cartao-titulo); font-size: 1.5rem; line-height: 1.2; padding-right: 2.5rem; }
+.aviso-corpo p { margin-top: 0.75rem; }
+.aviso-acoes { margin-top: 1.5rem; display: flex; justify-content: flex-end; }
+.aviso-fechar {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cartao-titulo);
+  cursor: pointer;
+  transition: background-color var(--dur-hover-fast) var(--ease-out-soft), transform var(--dur-press) var(--ease-out-soft);
+}
+.aviso-fechar:hover { background: color-mix(in oklab, var(--cartao-titulo) 12%, transparent); }
+.aviso-fechar:active { transform: scale(var(--press-scale)); }
+
+/* Sem JS não há rolagem por script: o navegador faz a rolagem suave nativa */
+@media (prefers-reduced-motion: no-preference) { html:not(.js) { scroll-behavior: smooth; } }
+@media print { .cabecalho { position: static; } }

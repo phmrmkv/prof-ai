@@ -1,0 +1,84 @@
+---
+import Base from '@/layouts/Base.astro';
+import TemaAlternar from '@/components/TemaAlternar.astro';
+import AvisoDialog from '@/components/AvisoDialog.astro';
+import Rodape from '@/components/Rodape.astro';
+import logo from '@/assets/logo.svg';
+import landing from '@/assets/landing.svg';
+import estudar from '@/assets/estudar.svg?raw';
+import darAulas from '@/assets/dar-aulas.svg?raw';
+
+// Ícones decorativos (o botão já tem texto): herdam a cor do botão e saem da árvore de acessibilidade.
+const icone = (svg: string) =>
+  svg
+    .replaceAll('#fff', 'currentColor')
+    .replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
+---
+
+<Base
+  title="Proffy | Sua plataforma de estudos online"
+  description="Landing do Proffy, estudo da Next Level Week 2 (Rocketseat): sua plataforma de estudos online."
+>
+  <header slot="topo" class="cabecalho" data-cabecalho>
+    <div class="cabecalho-interno">
+      <a href="#inicio" class="logo-link" aria-label="Proffy, ir para o início">
+        <img src={logo.src} width={logo.width} height={logo.height} alt="Proffy" />
+      </a>
+      <TemaAlternar />
+    </div>
+  </header>
+
+  <section id="inicio" class="sobre-hero" aria-labelledby="titulo-hero">
+    <div class="hero-grade">
+      <div>
+        <h1 id="titulo-hero" class="hero-titulo entra" style="--i: 0">Sua plataforma de estudos online</h1>
+        <p class="hero-sub entra" style="--i: 1">Seja bem-vindo. O que deseja fazer?</p>
+        <div class="hero-botoes entra" style="--i: 2">
+          <a href="#sobre-estudo" class="botao botao-estudar" data-dialogo="dlg-estudar">
+            <span set:html={icone(estudar)} />
+            Estudar
+          </a>
+          <a href="#sobre-estudo" class="botao botao-dar" data-dialogo="dlg-dar-aulas">
+            <span set:html={icone(darAulas)} />
+            Dar aulas
+          </a>
+        </div>
+      </div>
+      <div class="hero-arte entra-arte">
+        <img
+          src={landing.src}
+          width={landing.width}
+          height={landing.height}
+          alt="Ilustração de uma aula em vídeo: um professor aparece em uma tela, com um estudante de tablet de um lado e uma estudante de notebook do outro."
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre-estudo" class="secao" aria-labelledby="titulo-estudo">
+    <div class="secao-interno">
+      <h2 id="titulo-estudo">Sobre este estudo</h2>
+      <p>
+        Esta página é a <strong>landing do Proffy</strong> estudada na aula 1 da Next Level Week 2, da Rocketseat. Aqui ficam só a tela inicial e os dois botões de entrada.
+      </p>
+      <ul class="lista-estudo">
+        <li><strong>Estudar</strong>: levaria à tela de estudo do Proffy, que não faz parte deste estudo.</li>
+        <li><strong>Dar aulas</strong>: levaria à tela de professores do Proffy, que não faz parte deste estudo.</li>
+      </ul>
+    </div>
+  </section>
+
+  <AvisoDialog
+    id="dlg-estudar"
+    titulo="A tela de Estudar não faz parte deste estudo"
+    texto="Esta é a landing do Proffy estudada na aula 1 da Next Level Week 2. O botão Estudar levaria a outra tela do projeto, que não foi estudada aqui."
+  />
+  <AvisoDialog
+    id="dlg-dar-aulas"
+    titulo="A tela de Dar aulas não faz parte deste estudo"
+    texto="Esta é a landing do Proffy estudada na aula 1 da Next Level Week 2. O botão Dar aulas levaria a outra tela do projeto, que não foi estudada aqui."
+  />
+
+  <Rodape slot="rodape" />
+</Base>

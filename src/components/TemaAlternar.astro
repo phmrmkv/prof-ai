@@ -1,0 +1,50 @@
+---
+const rotuloEscuro = 'Mudar para o tema escuro';
+const rotuloClaro = 'Mudar para o tema claro';
+---
+
+<button type="button" class="tema-botao" aria-label={rotuloEscuro} data-tema-botao data-rotulo-escuro={rotuloEscuro} data-rotulo-claro={rotuloClaro}>
+  <svg class="tema-icone tema-icone-lua" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+  <svg class="tema-icone tema-icone-sol" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+  </svg>
+</button>
+
+<script>
+  const CORES = { light: '#8257E5', dark: '#1A1033' };
+  const raiz = document.documentElement;
+  const botao = document.querySelector<HTMLButtonElement>('[data-tema-botao]');
+
+  if (botao) {
+    const sincronizar = () => {
+      const escuro = raiz.dataset.theme === 'dark';
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', escuro ? CORES.dark : CORES.light);
+      // O rótulo diz a ação; sem aria-pressed, para o leitor de tela não se contradizer.
+      botao.setAttribute('aria-label', (escuro ? botao.dataset.rotuloClaro : botao.dataset.rotuloEscuro) ?? '');
+    };
+    sincronizar();
+    new MutationObserver(sincronizar).observe(raiz, { attributes: true, attributeFilter: ['data-theme'] });
+
+    let temporizador: number | undefined;
+    botao.addEventListener('click', () => {
+      const proximo = raiz.dataset.theme === 'dark' ? 'light' : 'dark';
+      raiz.classList.add('tema-trocando');
+      raiz.dataset.theme = proximo;
+      try {
+        localStorage.setItem('proffy-tema', proximo);
+      } catch {
+        /* sem armazenamento: a troca vale só nesta visita */
+      }
+      sincronizar();
+      window.clearTimeout(temporizador);
+      temporizador = window.setTimeout(() => raiz.classList.remove('tema-trocando'), 300);
+    });
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'proffy-tema' && (e.newValue === 'dark' || e.newValue === 'light')) raiz.dataset.theme = e.newValue;
+    });
+  }
+</script>
