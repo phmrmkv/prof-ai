@@ -1,0 +1,90 @@
+---
+import { exemplos } from '@/data/demo';
+
+const H0 = 8, H1 = 23;
+const pct = (h: number) => ((h - H0) / (H1 - H0)) * 100;
+const pos = ([a, b]: [number, number]) => `--l:${pct(a)}%;--w:${pct(b) - pct(a)}%`;
+const comum = (x: [number, number][] = [], y: [number, number][] = []) =>
+  x.flatMap(([a, b]) => y.map(([c, d]) => [Math.max(a, c), Math.min(b, d)] as [number, number])).filter(([a, b]) => b > a);
+const ticks = [8, 12, 16, 20];
+---
+
+<div class="demo" data-demo>
+  <div class="demo-topo">
+    <p>Demonstração com dados de exemplo</p>
+    <div class="demo-opcoes" role="group" aria-label="Escolher um exemplo">
+      {exemplos.map((e, i) => (
+        <button type="button" class="opcao" data-opcao={e.id} aria-pressed={i === 0 ? 'true' : 'false'}>{e.rotulo}</button>
+      ))}
+    </div>
+  </div>
+
+  {exemplos.map((e, i) => {
+        return (
+      <div class="painel" data-painel={e.id} hidden={i !== 0}>
+        <div class="demo-corpo">
+          <div>
+            <p class="demo-titulo">O que o aluno escreve</p>
+            <p class="pedido">
+              {e.texto.map((p) =>
+                p.marca ? <b class="dado">{p.t}</b> : p.t,
+              )}
+            </p>
+          </div>
+          <div>
+            <p class="demo-titulo">Professores sugeridos <span class="etiqueta-exemplo">exemplo</span></p>
+            <div class="professores">
+              {e.professores.map((p, k) => (
+                <article class="professor" style={`--i:${k}`}>
+                  <span class="avatar" aria-hidden="true">{p.iniciais}</span>
+                  <div>
+                    <p class="t">{p.nome}</p>
+                    <p class="foco">{p.foco}</p>
+                    <p class="horarios">{p.horarios}</p>
+                    <p class="motivo">{p.motivo}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p class="demo-titulo">Horário em comum com {e.professores[0].nome.split(',')[0]} <span class="etiqueta-exemplo">exemplo</span></p>
+            <div aria-hidden="true">
+              <div class="agendas">
+                <div class="ag-eixo"><span></span><div class="ag-ticks">{ticks.map((h) => <span style={`--x:${pct(h)}%`}>{h}h</span>)}</div></div>
+                {e.agenda.dias.map((dia, r) => (
+                  <div class="ag-dia" style={`--r:${r}`}>
+                    <span class="ag-nome">{dia.d}</span>
+                    <div class="ag-trilho">
+                      {(dia.aluno ?? []).map((f) => <i class="ag-aluno" style={pos(f)}></i>)}
+                      {(dia.prof ?? []).map((f) => <i class="ag-prof" style={pos(f)}></i>)}
+                      {comum(dia.aluno, dia.prof).map((f) => <i class="ag-comum" style={pos(f)}></i>)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p class="ag-legenda"><span><i class="l-aluno"></i>Agenda do aluno</span><span><i class="l-prof"></i>Agenda do professor</span><span><i class="l-comum"></i>Em comum</span></p>
+            </div>
+            <p class="ag-resumo"><strong>Em comum:</strong> {e.agenda.resumo}</p>
+          </div>
+          <div>
+            <p class="demo-titulo">Plano de 4 semanas <span class="etiqueta-exemplo">exemplo</span></p>
+            <ol class="plano">
+              {e.semanas.map((s, k) => (
+                <li style={`--i:${k}`}>
+                  <span class="sem" aria-hidden="true">{k + 1}</span>
+                  <div>
+                    <p class="t"><span class="sr-only">Semana {k + 1}: </span>{s.titulo}</p>
+                    <p>{s.descricao}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+
+  <p class="demo-rodape">Pessoas, horários e planos desta demonstração são inventados. Nada aqui vem de um produto em uso.</p>
+</div>

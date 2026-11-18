@@ -1,0 +1,35 @@
+---
+import Logo from './Logo.astro';
+import TemaAlternar from './TemaAlternar.astro';
+
+interface Props { raiz?: string }
+const { raiz = '' } = Astro.props;
+const links = [
+  { href: `${raiz}#como`, rotulo: 'Como funciona' },
+  { href: `${raiz}#ia`, rotulo: 'O que a IA faz' },
+  { href: `${raiz}#professores`, rotulo: 'Professores' },
+  { href: `${raiz}#perguntas`, rotulo: 'Perguntas' },
+];
+---
+
+<div class="faixa">
+  <div class="contorno">
+    <p><span class="ponto" aria-hidden="true"></span><span><strong>Projeto em desenvolvimento.</strong> Esta página é uma demonstração.</span></p>
+  </div>
+</div>
+<header class="cabecalho" data-cabecalho>
+  <div class="contorno cabecalho-linha">
+    <Logo href={raiz || '#inicio'} />
+    <nav class="nav" id="nav-principal" aria-label="Principal" data-nav>
+      <ul class="nav-lista">
+        {links.map((l) => <li><a href={l.href}>{l.rotulo}</a></li>)}
+      </ul>
+    </nav>
+    <div class="acoes-topo">
+      <button type="button" class="menu-botao" data-menu aria-expanded="false" aria-controls="nav-principal">
+        <span>Menu</span>
+      </button>
+      <TemaAlternar />
+    </div>
+  </div>
+</header>

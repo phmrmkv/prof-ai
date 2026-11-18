@@ -1,0 +1,18 @@
+---
+// Logo tipográfico PROVISÓRIO: o nome com duas agendas (aluno e professor) que se sobrepõem;
+// a faixa em comum é a tangerina. O mesmo desenho é o favicon.
+interface Props { href?: string }
+const { href } = Astro.props;
+const marca = (
+  '<svg viewBox="0 0 36 16" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">' +
+  '<rect x="1" y="1" width="21" height="14" rx="4" fill="var(--aluno)"/>' +
+  '<rect x="15" y="1" width="20" height="14" rx="4" fill="none" stroke="var(--aluno)" stroke-width="2"/>' +
+  '<rect x="15" y="1" width="7" height="14" rx="3" fill="var(--comum)"/>' +
+  '</svg>'
+);
+---
+{href ? (
+  <a class="logo" href={href} aria-label="Prof.ai, início"><Fragment set:html={marca} /><span aria-hidden="true">Prof<span class="logo-ai">.ai</span></span></a>
+) : (
+  <span class="logo"><Fragment set:html={marca} /><span>Prof<span class="logo-ai">.ai</span></span></span>
+)}

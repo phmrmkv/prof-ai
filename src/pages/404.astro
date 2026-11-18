@@ -1,31 +1,17 @@
 ---
 import Base from '@/layouts/Base.astro';
-import TemaAlternar from '@/components/TemaAlternar.astro';
+import Cabecalho from '@/components/Cabecalho.astro';
 import Rodape from '@/components/Rodape.astro';
-import logo from '@/assets/logo.svg';
 ---
 
-<Base title="Página não encontrada | Proffy" description="Esta página não existe neste estudo do Proffy." noindex>
-  <header slot="topo" class="cabecalho" data-cabecalho>
-    <div class="cabecalho-interno">
-      <a href="/" class="logo-link" aria-label="Proffy, ir para o início">
-        <img src={logo.src} width={logo.width} height={logo.height} alt="Proffy" />
-      </a>
-      <TemaAlternar />
-    </div>
-  </header>
-
-  <section class="sobre-hero" aria-labelledby="titulo-404">
-    <div class="hero-grade">
-      <div>
-        <h1 id="titulo-404" class="hero-titulo entra" style="--i: 0">Página não encontrada</h1>
-        <p class="hero-sub entra" style="--i: 1">Este estudo tem só a landing do Proffy.</p>
-        <div class="hero-botoes entra" style="--i: 2">
-          <a href="/" class="botao botao-dar">Voltar ao início</a>
-        </div>
-      </div>
+<Base title="Página não encontrada | Prof.ai" description="Esta página não existe no Prof.ai." noindex>
+  <Cabecalho slot="topo" raiz="/" />
+  <section class="pagina-erro">
+    <div class="contorno">
+      <h1>Esta página não existe.</h1>
+      <p>O endereço pode ter mudado ou ter sido digitado errado. A página inicial mostra tudo o que há por enquanto.</p>
+      <a href="/" class="botao botao-primario">Voltar ao início</a>
     </div>
   </section>
-
   <Rodape slot="rodape" />
 </Base>

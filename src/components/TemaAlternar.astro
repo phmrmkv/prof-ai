@@ -3,7 +3,7 @@ const rotuloEscuro = 'Mudar para o tema escuro';
 const rotuloClaro = 'Mudar para o tema claro';
 ---
 
-<button type="button" class="tema-botao" aria-label={rotuloEscuro} data-tema-botao data-rotulo-escuro={rotuloEscuro} data-rotulo-claro={rotuloClaro}>
+<button type="button" class="icone-botao" aria-label={rotuloEscuro} data-tema-botao data-rotulo-escuro={rotuloEscuro} data-rotulo-claro={rotuloClaro}>
   <svg class="tema-icone tema-icone-lua" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
   </svg>
@@ -14,7 +14,7 @@ const rotuloClaro = 'Mudar para o tema claro';
 </button>
 
 <script>
-  const CORES = { light: '#8257E5', dark: '#1A1033' };
+  const CORES = { light: '#f6f8fb', dark: '#0b1424' };
   const raiz = document.documentElement;
   const botao = document.querySelector<HTMLButtonElement>('[data-tema-botao]');
 
@@ -34,7 +34,7 @@ const rotuloClaro = 'Mudar para o tema claro';
       raiz.classList.add('tema-trocando');
       raiz.dataset.theme = proximo;
       try {
-        localStorage.setItem('proffy-tema', proximo);
+        localStorage.setItem('profai-tema', proximo);
       } catch {
         /* sem armazenamento: a troca vale só nesta visita */
       }
@@ -44,7 +44,7 @@ const rotuloClaro = 'Mudar para o tema claro';
     });
 
     window.addEventListener('storage', (e) => {
-      if (e.key === 'proffy-tema' && (e.newValue === 'dark' || e.newValue === 'light')) raiz.dataset.theme = e.newValue;
+      if (e.key === 'profai-tema' && (e.newValue === 'dark' || e.newValue === 'light')) raiz.dataset.theme = e.newValue;
     });
   }
 </script>

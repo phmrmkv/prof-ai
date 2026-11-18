@@ -1,84 +1,172 @@
 ---
 import Base from '@/layouts/Base.astro';
-import TemaAlternar from '@/components/TemaAlternar.astro';
-import AvisoDialog from '@/components/AvisoDialog.astro';
+import Cabecalho from '@/components/Cabecalho.astro';
 import Rodape from '@/components/Rodape.astro';
-import logo from '@/assets/logo.svg';
-import landing from '@/assets/landing.svg';
-import estudar from '@/assets/estudar.svg?raw';
-import darAulas from '@/assets/dar-aulas.svg?raw';
+import Demo from '@/components/Demo.astro';
+import Dialogo from '@/components/Dialogo.astro';
 
-// Ícones decorativos (o botão já tem texto): herdam a cor do botão e saem da árvore de acessibilidade.
-const icone = (svg: string) =>
-  svg
-    .replaceAll('#fff', 'currentColor')
-    .replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
+const passos = [
+  { t: 'Você conta o que quer aprender', d: 'Escreve do seu jeito: o assunto, para quando precisa e em que dias e horas consegue estudar.' },
+  { t: 'A IA sugere professores', d: 'Ela cruza o seu pedido com a área e a agenda de cada professor e explica por que sugeriu cada um.' },
+  { t: 'Você recebe um plano de estudo', d: 'O caminho vem dividido em semanas, com metas pequenas. Você muda o que não servir.' },
+  { t: 'Vocês combinam os horários', d: 'A IA propõe encaixes entre as duas agendas, e você e o professor confirmam.' },
+];
+
+const recursos = [
+  { t: 'Entende o que você quer', d: 'Separa do seu texto o objetivo, o prazo e os dias livres, sem formulário comprido.' },
+  { t: 'Sugere professores', d: 'Mostra quem combina com o pedido e diz o motivo: área, nível e horários em comum.' },
+  { t: 'Monta o plano de estudo', d: 'Divide o caminho em semanas, com metas que cabem na sua rotina.' },
+  { t: 'Ajuda a combinar horários', d: 'Compara as agendas e propõe horários que servem aos dois lados.' },
+  { t: 'Resume o pedido para o professor', d: 'Entrega o objetivo já organizado, e a primeira conversa começa do ponto certo.' },
+];
+
+const perguntas = [
+  { p: 'Posso usar o Prof.ai agora?', r: 'Ainda não. O produto está em desenvolvimento e não abre para uso. Esta página é uma demonstração com exemplos.' },
+  { p: 'Os professores e os planos que aparecem existem?', r: 'Não. Nomes, horários e planos da demonstração são inventados, e por isso vêm marcados como exemplo.' },
+  { p: 'A IA escolhe o professor por mim?', r: 'Ela sugere e explica o motivo. A escolha do professor e do plano é sempre sua.' },
+  { p: 'Quanto vai custar?', r: 'Isso ainda não foi definido, e por isso esta página não mostra preços.' },
+  { p: 'E para quem quer ensinar?', r: 'A ideia é o professor receber o aluno com o objetivo já descrito e os horários cruzados. Ainda não existe cadastro de professores.' },
+  { p: 'Esta página guarda meus dados?', r: 'Não. O formulário da lista de espera é só uma amostra: ele valida o campo no seu navegador e não envia nada. A única coisa guardada é a sua escolha de tema, no próprio navegador.' },
+];
 ---
 
 <Base
-  title="Proffy | Sua plataforma de estudos online"
-  description="Landing do Proffy, estudo da Next Level Week 2 (Rocketseat): sua plataforma de estudos online."
+  title="Prof.ai: alunos e professores, com ajuda de IA"
+  description="O Prof.ai é uma plataforma com IA em desenvolvimento: você conta o que quer aprender e quando pode, e ela sugere professores, monta um plano e ajuda a combinar horários."
 >
-  <header slot="topo" class="cabecalho" data-cabecalho>
-    <div class="cabecalho-interno">
-      <a href="#inicio" class="logo-link" aria-label="Proffy, ir para o início">
-        <img src={logo.src} width={logo.width} height={logo.height} alt="Proffy" />
-      </a>
-      <TemaAlternar />
-    </div>
-  </header>
+  <Cabecalho slot="topo" />
 
-  <section id="inicio" class="sobre-hero" aria-labelledby="titulo-hero">
-    <div class="hero-grade">
-      <div>
-        <h1 id="titulo-hero" class="hero-titulo entra" style="--i: 0">Sua plataforma de estudos online</h1>
-        <p class="hero-sub entra" style="--i: 1">Seja bem-vindo. O que deseja fazer?</p>
-        <div class="hero-botoes entra" style="--i: 2">
-          <a href="#sobre-estudo" class="botao botao-estudar" aria-haspopup="dialog" data-dialogo="dlg-estudar">
-            <span set:html={icone(estudar)} />
-            Estudar
-          </a>
-          <a href="#sobre-estudo" class="botao botao-dar" aria-haspopup="dialog" data-dialogo="dlg-dar-aulas">
-            <span set:html={icone(darAulas)} />
-            Dar aulas
-          </a>
+  <section class="hero" id="inicio">
+    <div class="contorno hero-grade">
+      <div class="hero-texto">
+        <h1>Conte o que quer aprender. A IA ajuda a achar quem ensina.</h1>
+        <p class="lead">
+          O Prof.ai junta alunos e professores. Você descreve o objetivo e o tempo que tem; a IA sugere professores que combinam, monta um plano de estudo e ajuda a acertar os horários.
+        </p>
+        <div class="hero-acoes">
+          <a href="#perguntas" class="botao botao-primario" data-dialogo="dlg-aviso">Quero testar</a>
+          <a href="#como" class="botao botao-contorno">Ver como funciona</a>
         </div>
       </div>
-      <div class="hero-arte entra-arte">
-        <img
-          src={landing.src}
-          width={landing.width}
-          height={landing.height}
-          alt="Ilustração de uma aula em vídeo: um professor aparece em uma tela, com um estudante de tablet de um lado e uma estudante de notebook do outro."
-          fetchpriority="high"
-        />
-      </div>
+      <Demo />
     </div>
   </section>
 
-  <section id="sobre-estudo" class="secao" aria-labelledby="titulo-estudo">
-    <div class="secao-interno">
-      <h2 id="titulo-estudo">Sobre este estudo</h2>
-      <p>
-        Esta página é a <strong>landing do Proffy</strong> estudada na aula 1 da Next Level Week 2, da Rocketseat. Aqui ficam só a tela inicial e os dois botões de entrada.
+  <section class="secao fundo-2" id="como">
+    <div class="contorno dupla">
+      <div data-reveal>
+        <h2 class="titulo-secao">Do objetivo à primeira aula</h2>
+        <p class="lead" style="margin-top: 1rem;">Quatro passos, na ordem em que acontecem.</p>
+      </div>
+      <ol class="passos">
+        {passos.map((p, i) => (
+          <li data-reveal style={`--i:${i}`}>
+            <span class="n" aria-hidden="true">{i + 1}</span>
+            <div>
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="secao" id="ia">
+    <div class="contorno">
+      <div data-reveal>
+        <h2 class="titulo-secao">O que a IA faz</h2>
+        <p class="lead" style="margin-top: 1rem;">Ela cuida da parte trabalhosa de começar.</p>
+      </div>
+      <ul class="recursos">
+        {recursos.map((r, i) => (
+          <li data-reveal style={`--i:${i}`}>
+            <h3>{r.t}</h3>
+            <p>{r.d}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="nota" data-reveal>
+        A IA sugere. <strong>Quem escolhe o professor e o plano é você.</strong>
+        <small>Estes são os recursos planejados para a primeira versão. A lista pode mudar durante o desenvolvimento.</small>
       </p>
-      <ul class="lista-estudo">
-        <li><strong>Estudar</strong>: levaria à tela de estudo do Proffy, que não faz parte deste estudo.</li>
-        <li><strong>Dar aulas</strong>: levaria à tela de professores do Proffy, que não faz parte deste estudo.</li>
+    </div>
+  </section>
+
+  <section class="secao banda" id="professores">
+    <div class="contorno banda-grade">
+      <div data-reveal>
+        <h2 class="titulo-secao">Para quem ensina, o aluno chega com o pedido escrito</h2>
+        <p class="lead">Quem dá aula gasta tempo descobrindo, mensagem por mensagem, o que o aluno procura. A ideia do Prof.ai é entregar isso já resumido.</p>
+        <a href="#perguntas" class="botao botao-claro" data-dialogo="dlg-aviso">Quero ensinar</a>
+      </div>
+      <ul data-reveal style="--i:2">
+        {[
+          'Você vê o que o aluno quer aprender e até quando.',
+          'Os horários dele já vêm cruzados com os seus.',
+          'A primeira conversa começa pelo plano, não do zero.',
+        ].map((t) => (
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span>{t}</span>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
 
-  <AvisoDialog
-    id="dlg-estudar"
-    titulo="A tela de Estudar não faz parte deste estudo"
-    texto="Esta é a landing do Proffy estudada na aula 1 da Next Level Week 2. O botão Estudar levaria a outra tela do projeto, que não foi estudada aqui."
-  />
-  <AvisoDialog
-    id="dlg-dar-aulas"
-    titulo="A tela de Dar aulas não faz parte deste estudo"
-    texto="Esta é a landing do Proffy estudada na aula 1 da Next Level Week 2. O botão Dar aulas levaria a outra tela do projeto, que não foi estudada aqui."
-  />
+  <section class="secao" id="perguntas">
+    <div class="contorno">
+      <div data-reveal>
+        <h2 class="titulo-secao">Perguntas</h2>
+      </div>
+      <div class="perguntas" data-reveal>
+        {perguntas.map((q) => (
+          <details class="detalhe">
+            <summary>
+              <span>{q.p}</span>
+              <svg class="seta" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>
+            </summary>
+            <div class="corpo"><p>{q.r}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="secao final" style="padding-top: 0;">
+    <div class="contorno">
+      <div class="caixa" data-reveal>
+        <div>
+          <h2>Quer acompanhar o Prof.ai?</h2>
+          <p>Ainda não há data para abrir. Por enquanto, esta página só mostra a ideia.</p>
+        </div>
+        <a href="#perguntas" class="botao botao-primario" data-dialogo="dlg-lista">Entrar na lista de espera</a>
+      </div>
+    </div>
+  </section>
 
   <Rodape slot="rodape" />
+
+  <Dialogo id="dlg-aviso" titulo="O Prof.ai ainda está em desenvolvimento" slot="rodape">
+    <p>Ele ainda não abre para uso: não dá para criar conta, procurar professores nem marcar aulas. Esta página mostra a ideia com exemplos.</p>
+    <div class="aviso-acoes">
+      <button type="button" class="botao botao-primario" data-fechar>Entendi</button>
+    </div>
+  </Dialogo>
+
+  <Dialogo id="dlg-lista" titulo="Lista de espera" slot="rodape">
+    <form method="dialog" data-lista>
+      <p>Esta é uma amostra de como seria. Nada é enviado nem guardado: o produto ainda não abre para uso.</p>
+      <div class="campo">
+        <label for="lista-email">E-mail</label>
+        <input id="lista-email" name="email" type="email" required autocomplete="email" inputmode="email" />
+      </div>
+      <p class="campo dica" role="status" data-status></p>
+      <div class="aviso-acoes">
+        <button type="button" class="botao botao-fantasma" data-fechar>Cancelar</button>
+        <button type="submit" class="botao botao-primario">Entrar na lista</button>
+      </div>
+    </form>
+  </Dialogo>
 </Base>
