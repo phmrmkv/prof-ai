@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://profai.libertycondominio.online',
+  site: 'https://profai.phmr.com.br',
   output: 'static',
   integrations: [sitemap()],
   vite: {

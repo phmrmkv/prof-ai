@@ -2,7 +2,7 @@
 
 Plataforma com IA que conecta alunos e professores, **em desenvolvimento**. Este repositório tem a página de demonstração (landing): o aluno conta o que quer aprender e quando pode, e a IA sugere professores compatíveis, monta um plano de estudo e ajuda a combinar horários. Os professores, planos e horários que aparecem na página são exemplos inventados.
 
-Site: https://profai.libertycondominio.online
+Site: https://profai.phmr.com.br
 
 O logo (nome com duas agendas que se sobrepõem) é provisório, feito em código.
 
