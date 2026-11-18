@@ -34,11 +34,11 @@ const icone = (svg: string) =>
         <h1 id="titulo-hero" class="hero-titulo entra" style="--i: 0">Sua plataforma de estudos online</h1>
         <p class="hero-sub entra" style="--i: 1">Seja bem-vindo. O que deseja fazer?</p>
         <div class="hero-botoes entra" style="--i: 2">
-          <a href="#sobre-estudo" class="botao botao-estudar" data-dialogo="dlg-estudar">
+          <a href="#sobre-estudo" class="botao botao-estudar" aria-haspopup="dialog" data-dialogo="dlg-estudar">
             <span set:html={icone(estudar)} />
             Estudar
           </a>
-          <a href="#sobre-estudo" class="botao botao-dar" data-dialogo="dlg-dar-aulas">
+          <a href="#sobre-estudo" class="botao botao-dar" aria-haspopup="dialog" data-dialogo="dlg-dar-aulas">
             <span set:html={icone(darAulas)} />
             Dar aulas
           </a>

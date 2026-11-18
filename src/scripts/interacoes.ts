@@ -58,8 +58,12 @@ document.querySelectorAll<HTMLAnchorElement>('a[data-dialogo]').forEach((gatilho
 // Fechar: botões do próprio Dialog e clique no fundo (fora do conteúdo).
 document.querySelectorAll<HTMLDialogElement>('dialog.aviso').forEach((dialogo) => {
   dialogo.querySelectorAll('[data-fechar]').forEach((b) => b.addEventListener('click', () => dialogo.close()));
+  // Só fecha se o clique começa e termina no fundo (arrastar uma seleção até lá não fecha).
+  let comecouNoFundo = false;
+  dialogo.addEventListener('pointerdown', (e) => (comecouNoFundo = e.target === dialogo));
   dialogo.addEventListener('click', (e) => {
-    if (e.target === dialogo) dialogo.close();
+    if (comecouNoFundo && e.target === dialogo) dialogo.close();
+    comecouNoFundo = false;
   });
 });
 

@@ -27,7 +27,8 @@ const og = new URL('/og.png', Astro.site);
         }
         d.dataset.theme = salvo() || (m.matches ? 'dark' : 'light');
         function mudou(e) { if (!salvo()) d.dataset.theme = e.matches ? 'dark' : 'light'; }
-        m.addEventListener('change', mudou);
+        if (m.addEventListener) m.addEventListener('change', mudou);
+        else if (m.addListener) m.addListener(mudou);
         d.classList.add('js');
       })();
     </script>
@@ -39,6 +40,8 @@ const og = new URL('/og.png', Astro.site);
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Proffy" />
