@@ -16,28 +16,28 @@
 ------------------------------------------------------------------- */
 :root {
   color-scheme: light;
-  --fundo: #f3f6f1;
+  --fundo: #f4f6ee;
   --superficie: #ffffff;
-  --superficie-2: #e6eee5;
-  --tinta: #11251a;
-  --suave: #41584a;
-  --primaria: #1b5e3f;
-  --primaria-hover: #134631;
+  --superficie-2: #e8eddc;
+  --tinta: #1c2616;
+  --suave: #4a5740;
+  --primaria: #2f6b1f;
+  --primaria-hover: #245516;
   --sobre-primaria: #ffffff;
-  --borda: #cbd9cb;
-  --campo: #678570;
-  --anel: #1b5e3f;
+  --borda: #d3dbc4;
+  --campo: #76855f;
+  --anel: #2f6b1f;
   --comum: #e8590c;
   --acento: #ff8a3d;
   --acento-hover: #ffa366;
-  --sobre-acento: #11251a;
-  --aluno: #1b5e3f;
-  --faixa: #11251a;
-  --sobre-faixa: #eef4ee;
-  --banda: #174d34;
+  --sobre-acento: #1c2616;
+  --aluno: #2f6b1f;
+  --faixa: #1c2616;
+  --sobre-faixa: #f0f3e8;
+  --banda: #28591a;
   --sobre-banda: #ffffff;
-  --sobre-banda-suave: #cfe5d6;
-  --sombra: 0 1px 2px rgb(17 37 26 / 0.06), 0 12px 32px -12px rgb(17 37 26 / 0.2);
+  --sobre-banda-suave: #d9e8c8;
+  --sombra: 0 1px 2px rgb(28 38 22 / 0.06), 0 12px 32px -12px rgb(28 38 22 / 0.2);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-quick: cubic-bezier(0.4, 0, 1, 1);
@@ -69,27 +69,27 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --fundo: #0d1a13;
-  --superficie: #14261c;
-  --superficie-2: #1c3527;
-  --tinta: #eaf3ec;
-  --suave: #a5bdac;
+  --fundo: #12170d;
+  --superficie: #1a2214;
+  --superficie-2: #25301c;
+  --tinta: #f0f3e8;
+  --suave: #b2bda3;
   --primaria: #ff9a52;
   --primaria-hover: #ffb27a;
-  --sobre-primaria: #0d1a13;
-  --borda: #284434;
-  --campo: #6f9480;
+  --sobre-primaria: #12170d;
+  --borda: #36422b;
+  --campo: #7f9068;
   --anel: #ff9a52;
   --comum: #ff9a52;
   --acento: #ff9a52;
   --acento-hover: #ffb27a;
-  --sobre-acento: #0d1a13;
-  --aluno: #7fd0a0;
-  --faixa: #14261c;
-  --sobre-faixa: #eaf3ec;
-  --banda: #14261c;
-  --sobre-banda: #eaf3ec;
-  --sobre-banda-suave: #a9c2b0;
+  --sobre-acento: #12170d;
+  --aluno: #a6d27a;
+  --faixa: #1a2214;
+  --sobre-faixa: #f0f3e8;
+  --banda: #1a2214;
+  --sobre-banda: #f0f3e8;
+  --sobre-banda-suave: #bccaa8;
   --sombra: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -12px rgb(0 0 0 / 0.6);
 }
 
@@ -317,13 +317,16 @@ html.tema-trocando, html.tema-trocando *, html.tema-trocando *::before, html.tem
 
 /* ---------- Rodapé ---------- */
 .rodape { padding-block: 2.5rem 3rem; color: var(--suave); font-size: 0.9375rem; }
-.rodape .contorno { display: grid; gap: 1rem; }
-.rodape a { color: var(--tinta); text-decoration: underline; text-decoration-color: var(--campo); text-underline-offset: 3px; transition: text-decoration-color var(--dur-hover-fast) var(--ease-out-soft); }
-.rodape a:hover { text-decoration-color: var(--tinta); }
+.rodape .contorno { border-top: 1px solid var(--borda); padding-top: 1.75rem; }
+.rodape-linha { display: grid; gap: 0.5rem; justify-items: start; }
+@media (min-width: 768px) { .rodape-linha { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2rem; } }
+.rodape .phmr-credito { color: var(--suave); text-decoration: none; margin-left: -0.1rem; }
+.rodape .phmr-credito:hover { color: var(--tinta); }
+.rodape .phmr-credito:focus-visible { outline-color: var(--anel); }
 
 /* ---------- Diálogos ---------- */
 dialog.aviso { padding: 0; border: 1px solid var(--borda); border-radius: 1.5rem; background: var(--superficie); color: var(--tinta); width: min(32rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); margin: auto; box-shadow: var(--sombra); overflow: auto; }
-dialog.aviso::backdrop { background: rgb(6 20 13 / 0.65); }
+dialog.aviso::backdrop { background: rgb(12 16 8 / 0.65); }
 dialog.aviso[open] { animation: dlg-in var(--dur-open) var(--ease-out-soft); }
 dialog.aviso[open]::backdrop { animation: fade-in-soft var(--dur-open) var(--ease-out-soft); }
 dialog.aviso.fechando { animation: dlg-out var(--dur-close) var(--ease-out-soft) forwards; }

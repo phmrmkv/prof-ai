@@ -131,6 +131,12 @@ if (menu && nav) {
   nav.addEventListener('click', (e) => {
     if ((e.target as Element).closest('a')) definir(false);
   });
+  // Clique ou toque fora do menu e do botão fecha o menu.
+  document.addEventListener('click', (e) => {
+    if (menu.getAttribute('aria-expanded') !== 'true') return;
+    const alvo = e.target as Node;
+    if (!nav.contains(alvo) && !menu.contains(alvo)) definir(false);
+  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') {
       definir(false);

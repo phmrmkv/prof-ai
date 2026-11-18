@@ -32,9 +32,9 @@ const og = new URL('/og.png', Astro.site);
         d.classList.add('js');
       })();
     </script>
-    <meta name="theme-color" content="#f3f6f1" />
+    <meta name="theme-color" content="#f4f6ee" />
     <script is:inline>
-      if (document.documentElement.dataset.theme === 'dark') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d1a13');
+      if (document.documentElement.dataset.theme === 'dark') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#12170d');
     </script>
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -72,6 +72,8 @@ const og = new URL('/og.png', Astro.site);
       (function () {
         var itens = document.querySelectorAll('[data-reveal]');
         var demos = document.querySelectorAll('[data-demo]');
+        // Gatilhos de diálogo: com JS viram botões (sem JS continuam links para #perguntas).
+        document.querySelectorAll('a[data-dialogo]').forEach(function (a) { a.setAttribute('role', 'button'); a.setAttribute('aria-haspopup', 'dialog'); });
         function mostrar(lista, classe) { for (var i = 0; i < lista.length; i++) lista[i].classList.add(classe); }
         if (!('IntersectionObserver' in window)) { mostrar(itens, 'is-shown'); mostrar(demos, 'vista'); return; }
         function observar(lista, classe, opcoes) {
