@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nlw2.libertycondominio.online/sitemap-index.xml
+Sitemap: https://proffy.libertycondominio.online/sitemap-index.xml
